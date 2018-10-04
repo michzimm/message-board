@@ -4,4 +4,4 @@ metadata:
   name: hyperflex
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
-provisioner: hyperflex/hxvolume
+provisioner: hyperflex.io/hxvolume
