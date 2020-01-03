@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: message-board
+    labels:
+        app: message-board
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: message-board
+    template:
+        metadata:
+            labels:
+                app: message-board
+                name: message-board
+        spec:
+            volumes:
+                - name: demovolume1
+                  persistentVolumeClaim:
+                    claimName: message-board-pvc
+            containers:
+            - name: message-board
+              image: michzimm/message_board:version1
+              ports:
+              - containerPort: 5000
+              volumeMounts:
+                  - mountPath: "/sqldb"
+                    name: demovolume1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: message-board
+  labels:
+    name: message-board
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    nodePort: 30002
+  selector:
+    name: message-board

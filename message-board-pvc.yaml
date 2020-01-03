@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: message-board-pvc
 spec:
-  storageClassName: hyperflex
+  storageClassName: hyperflex-csi
   accessModes:
     - ReadWriteOnce
   resources:
